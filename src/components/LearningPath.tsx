@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, Shield, Brain, Code, Database } from 'lucide-react';
+import { BookOpen, Shield, Brain, Code, Database, LucideProps } from 'lucide-react';
 
 export const topics = [
   {
@@ -65,7 +65,16 @@ export const topics = [
   }
 ];
 
-const TopicCard = ({ topic }) => {
+interface Topic {
+  id: number;
+  title: string;
+  completed: boolean;
+  icon: React.ComponentType<LucideProps>;
+  side: string;
+  subtopics: string[];
+}
+
+const TopicCard = ({ topic }: { topic: Topic }) => {
   const IconComponent = topic.icon;
   
   return (
@@ -84,7 +93,7 @@ const TopicCard = ({ topic }) => {
           <div>
             <h3 className="font-semibold text-gray-900 text-sm mb-2">{topic.title}</h3>
             <div className="space-y-1">
-              {topic.subtopics.map((subtopic, idx) => (
+              {topic.subtopics.map((subtopic: string, idx: number) => (
                 <p key={idx} className="text-gray-500 text-xs flex items-center gap-1.5">
                   <span className={`w-1 h-1 rounded-full ${
                     topic.completed ? 'bg-blue-500' : 'bg-gray-300'
